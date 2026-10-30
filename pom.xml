@@ -32,7 +32,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>  <!-- Create sources.jar -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
@@ -57,7 +57,21 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Add Main-Class to the generated JAR manifest -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.jitpack.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
-
 </project>
