@@ -1,20 +1,26 @@
 package com.github.jitpack;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootApplication
-@RestController
-public class App {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
-    }
+@SpringBootTest
+@AutoConfigureMockMvc
+class AppTest {
 
-    @GetMapping("/")
-    public String hello() {
-        return "Hello world";
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void testHelloEndpoint() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello world"));
     }
 }
